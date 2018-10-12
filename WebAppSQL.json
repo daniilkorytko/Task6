@@ -1,0 +1,86 @@
+{
+    "parameters": {
+        "administratorLogin": {
+            "type": "string"
+        },
+        "administratorLoginPassword": {
+            "type": "securestring"
+        },
+        "nameSQL": {
+            "type": "string"
+        },
+        "hostingPlanName": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string"
+        },
+        "skuCode": {
+            "type": "string"
+        },
+        "workerSize": {
+            "type": "string"
+        },
+        "serverName": {
+            "type": "string"
+        },
+        "databaseName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "ConnectionString": "[concat('Data Source=tcp:' , parameters('serverName'), '.database.windows.net' , ',1433;Initial Catalog=', parameters('databaseName'),';User Id=', parameters('administratorLogin'),'@', parameters('serverName'),'.database.windows.net',';Password=',parameters('administratorLoginPassword'))]"
+       
+    },
+    "resources": [
+        {
+            "name": "[parameters('nameSQL')]",
+            "type": "Microsoft.Web/sites",
+            "properties": {
+                "siteConfig": {
+                    "connectionStrings": [
+                        {
+                            "name": "defaultConnection",
+                            "ConnectionString": "[variables('ConnectionString')]",
+                            "type": "SQLAzure"
+                        }
+                    ],
+                    "appSettings": []
+                },
+                "name": "[parameters('nameSQL')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "availabilityState": "Normal",
+                "clientAffinityEnabled": true,
+                "clientCertEnabled": false,
+                "cloningInfo": null,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "defaultHostName": "Task6APP.azurewebsites.net",
+                "deploymentLocalGitUrl": "https://raw.githubusercontent.com/Azure-Samples/app-service-web-dotnet-get-started/master/",
+                "enabled": true
+            },
+            "apiVersion": "2016-03-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+            ]
+        },
+        {
+            "apiVersion": "2016-09-01",
+            "name": "[parameters('hostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "workerSizeId": "[parameters('workerSize')]",
+                "numberOfWorkers": "1"
+            },
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            }
+        }
+    ],
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0"
+}
