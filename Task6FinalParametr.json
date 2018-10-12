@@ -1,0 +1,109 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "KeyVautsName": {
+            "value": "MyKeyVauntsTask6"
+        },
+        "accessPolicies": {
+            "value": [
+                {
+                    "objectId": "a10ce55d-dfb5-4433-a389-152b8614de8d",
+                    "tenantId": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "permissions": {
+                        "keys": ["All"],
+                        "secrets": ["All"],
+                        "certificates": ["All"]
+                    }
+                },
+                {
+                    "objectId": "f3d19bd0-a5ee-4ff5-bd53-079f5878beaa",
+                    "tenantId": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "permissions": {
+                        "keys": ["All"],
+                        "secrets": ["All"],
+                        "certificates": ["All"]
+                    },
+                    "applicationId": null
+                }
+            ]
+        },
+        "tenant": {
+            "value": "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
+        },
+        "enabledForDeployment": {
+            "value": true
+        },
+        "enabledForTemplateDeployment": {
+            "value": true
+        },
+        "enabledForDiskEncryption": {
+            "value": false
+        },
+        "networkAcls": {
+            "value": {
+                "defaultAction": "Allow",
+                "bypass": "AzureServices",
+                "virtualNetworkRules": [],
+                "ipRules": []
+            }
+        },
+        "secretsObject": {
+            "value": {
+                "secrets": [						
+                    {
+                        "secretName": "Secret1Task4",
+                        "secretValue": "secretValue4"
+                    }
+                ]
+            }
+        },
+
+
+
+
+
+        "administratorLogin": {
+            "value": "Administrator1"
+        },
+        "collation": {
+            "value": "SQL_Latin1_General_CP1_CI_AS"
+        },
+        "databaseName": {
+            "value": "Mydatabase"
+        },
+        "tier": {
+            "value": "Basic"
+        },
+        "skuName": {
+            "value": "Basic"
+        },
+        "maxSizeBytes": {
+            "value": 2147483648
+        },
+        "serverName": {
+            "value": "daniiltask6"
+        },
+        "zoneRedundant": {
+            "value": false
+        },
+        "enableATP": {
+            "value": false
+        },
+        "allowAzureIps": {
+            "value": true
+        },
+        "nameSQL": {
+            "value": "Task6APP"
+        },
+        "hostingPlanName": {
+            "value": "Task6APPPlan"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "skuCode": {
+            "value": "S1"
+        }
+    }
+}
