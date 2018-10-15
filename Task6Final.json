@@ -29,13 +29,16 @@
             "type": "string"
         },
         "enabledForDeployment": {
-            "type": "bool"
+            "type": "bool",
+            "defaultValue": true
         },
         "enabledForTemplateDeployment": {
-            "type": "bool"
+            "type": "bool",
+            "defaultValue": true
         },
         "enabledForDiskEncryption": {
-            "type": "bool"
+            "type": "bool",
+            "defaultValue": false
         },
         "networkAcls": {
             "type": "object"
@@ -57,10 +60,12 @@
             "type": "string"
         },
         "tier": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "Basic"
         },
         "skuName": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "Basic"
         },
         "maxSizeBytes": {
             "type": "int"
@@ -87,16 +92,31 @@
             "type": "string"
         },
         "skuCode": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "S1"
         },
         "workerSize": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "0"
+        },
+        "AdminPassword": {
+            "type": "securestring"
         }
     },
     "variables": {
         "location": "[resourceGroup().location]",
-        "VarsecretName": "[parameters('secretsObject').secrets[0].secretName]" 
+        "VarsecretName": "[parameters('secretsObject').secrets[0].secretName]",
+
+        "secretsObject1": {
+
+            "secrets": [						
+                {
+                    "secretName": "[parameters('secretsObject').secrets[0].secretName]",
+                    "secretValue": "[parameters('AdminPassword')]"
+                }
+            ]
         
+    },
 
     },
 
@@ -124,7 +144,7 @@
                 "enabledForTemplateDeployment":{"value": "[parameters('enabledForTemplateDeployment')]"},
                 "enabledForDiskEncryption":{"value": "[parameters('enabledForDiskEncryption')]"},
                 "networkAcls":{"value": "[parameters('networkAcls')]"},
-                "secretsObject":{"value": "[parameters('secretsObject')]"}
+                "secretsObject":{"value": "[variables('secretsObject1')]"}
               }
            }
         },
